@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Fórmula da Consagração a Jesus por Maria</title>
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light Marian blue */
+            font-family: "Palatino", "Times New Roman", serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #4a69bd; /* Marian blue border */
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        input, select {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #4a69bd; /* Marian blue */
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #3b55a3; /* Slightly darker blue on hover */
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        .image-container {
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .description {
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Consagração a Jesus por Maria</h1>
+
+    <div class="image-container">
+        <img src="/static/marian_image.png" alt="Nossa Senhora Aparecida">
+    </div>
+
+    <p class="description">"O ato de se consagrar a Jesus por Maria marca o início de um dia gloriosamente novo, um novo amanhecer, uma nova manhã na jornada espiritual de uma pessoa." - Padre Michael Gaitley</p>
+    <p class="description">Por favor, informe seu nome completo, escolha o template desejado e receba sua fórmula de consagração personalizada </p>
+    <form action="/generate_consacration_file/" method="post">
+        <label for="name">Informe seu nome:</label>
+        <input type="text" id="name" name="name" placeholder="Nome completo" required>
+
+        <label for="pdf_template">Escolha um template:</label>
+        <select id="pdf_template" name="pdf_template">
+            {% for server_name, display_name in pdf_files.items() %}
+                <option value="{{ server_name }}">{{ display_name }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Gerar Fórmula de Consagração</button>
+    </form>
+
+    <div class="footer">
+        <p>"Minha alma louva o Senhor, exulta meu espírito em Deus, meu Salvador!" (Lc, 1:46)</p>
+        <p>&copy; 2024</p>
+        <p><a href="https://github.com/dantba/MtnConsacration" target="_blank">GitHub</a></p>
+
+    </div>
+</body>
+</html>
