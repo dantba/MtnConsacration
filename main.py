@@ -27,14 +27,11 @@ PDF_MAP = {
 
 app = FastAPI()
 
-# Set up the templates directory for Jinja2
 templates = Jinja2Templates(directory="templates")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-# Path to the folder with base PDF templates
-BASE_PDF_DIR = Path("pdf_files")
 
 @app.get("/")
 async def get_form(request: Request):
@@ -55,7 +52,6 @@ def _get_consacration_text(text):
 
 @app.post("/generate_consacration_file/")
 async def generate_consacration_file(name: str = Form(...), pdf_template: str = Form(...)):
-    # Step 1: Read the existing PDF from the server
     pdf_path = f"pdf_files/{pdf_template}"
     if not os.path.exists(pdf_path):
         return {"error": "PDF file not found on the server"}
@@ -71,48 +67,36 @@ async def generate_consacration_file(name: str = Form(...), pdf_template: str = 
         can = canvas.Canvas(buffer, pagesize=letter)
         pdfmetrics.registerFont(TTFont('Palatino', 'pala.ttf'))
             
-        # Step 1: Set margins (1 inch on all sides)
         left_margin = 0.25 * inch
         right_margin = 0.25 * inch
-        top_margin = 8.3 * inch  # Starting from near the top of the page
+        top_margin = 8.3 * inch 
 
-        # Step 2: Set the font to Palatino with size 11
         can.setFont("Palatino", 11)
 
-        # Step 3: Define paragraph indentation (e.g., 0.5 inch)
         paragraph_indent = 0.5 * inch
 
-        max_width = 8.5 * inch - left_margin - right_margin  # Page width minus the margins
+        max_width = 8.5 * inch - left_margin - right_margin  
 
-        # Create a text object starting at the left margin and top margin
         text_object = can.beginText(left_margin, top_margin)
 
-        # Step 4: Split text into paragraphs and add indentation for the first line
-        paragraphs = pdf_text.split("\n")  # Assuming paragraphs are separated by double line breaks
+        paragraphs = pdf_text.split("\n") 
 
 
         for para in paragraphs:
-            # Step 5: Split the paragraph into lines that fit within the specified width
             lines = simpleSplit(para, "Palatino", 11, max_width)
 
-            # Indent the first line of each paragraph
-            first_line = " " * 4 + lines[0]  # Add spaces to indent the first line
+            first_line = " " * 4 + lines[0] 
 
-            # Add the first line with indentation
             text_object.textLine(first_line)
 
-            # Add the remaining lines (without indentation)
             for line in lines[1:]:
                 text_object.textLine(line)
 
-            # Add some space between paragraphs
             text_object.moveCursor(0, 2)  
             
         can.drawText(text_object)
-        # Save the canvas
         can.save()
 
-        # Step 3: Merge the new text onto the first page of the uploaded PDF
         buffer.seek(0)
         new_pdf = PdfReader(buffer)
 
@@ -122,12 +106,10 @@ async def generate_consacration_file(name: str = Form(...), pdf_template: str = 
                 page.merge_page(new_pdf.pages[0])
             pdf_writer.add_page(page)
 
-        # Step 4: Write the modified PDF to a buffer
         output_buffer = BytesIO()
         pdf_writer.write(output_buffer)
         output_buffer.seek(0)
         file_name = f"{name.split(' ')[0].lower()}_consagracao_{pdf_template}"
-        # Return the modified PDF as a downloadable file
         headers = {
             "Content-Disposition": f"attachment; filename={file_name}",
         }
@@ -135,7 +117,6 @@ async def generate_consacration_file(name: str = Form(...), pdf_template: str = 
         return StreamingResponse(output_buffer, headers=headers, media_type="application/pdf")
 
 
-# Running FastAPI app
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
