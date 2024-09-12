@@ -21,9 +21,9 @@ app = FastAPI()
 PDF_MAP = {
     'nsa_sra_aparecida.pdf': 'Nossa Senhora Aparecida',
     'nsa_sra_gracas.pdf': 'Nossa Senhora das Graças',
-    'nsa_sra_fatima': 'Nossa Senhora de Fátima',
-    'nsa_sra_guadalupe': 'Nossa Senhora de Guadalupe',
-    'nsa_sra_carmo': 'Nossa Senhora do Carmo'
+    'nsa_sra_fatima.pdf': 'Nossa Senhora de Fátima',
+    'nsa_sra_guadalupe.pdf': 'Nossa Senhora de Guadalupe',
+    'nsa_sra_carmo.pdf': 'Nossa Senhora do Carmo'
 }
 
 
