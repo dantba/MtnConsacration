@@ -1,9 +1,7 @@
-# fly.toml app configuration file generated for mtnconsacration on 2024-09-11T21:39:57-03:00
-#
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'mtnconsacration'
+app = 'consagracaomtn'
 primary_region = 'gru'
 
 [build]
