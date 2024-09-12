@@ -19,6 +19,7 @@
         h1 {
             color: #2c3e50;
             margin-top: 20px;
+            text-align: center;
         }
 
         form {
@@ -38,16 +39,17 @@
             margin-top: 10px;
             font-size: 16px;
             font-weight: bold;
+            text-align: left;
         }
 
         input, select {
             margin: 10px 0;
             padding: 10px;
             width: 100%;
-            max-width: 400px;
             border-radius: 5px;
             border: 1px solid #ccc;
             font-size: 14px;
+            box-sizing: border-box;
         }
 
         button {
@@ -59,6 +61,7 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 20px;
+            width: 100%;
         }
 
         button:hover {
@@ -85,6 +88,57 @@
             font-size: 14px;
             margin-bottom: 20px;
             color: #2c3e50;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                padding: 15px;
+                margin: 10px auto;
+                border-radius: 8px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+
+            .image-container img {
+                max-width: 150px;
+            }
+
+            .description {
+                font-size: 13px;
+            }
+
+            label {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 22px;
+            }
+
+            .image-container img {
+                max-width: 120px;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            input, select {
+                font-size: 13px;
+                padding: 8px;
+            }
+
+            .description {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -96,7 +150,8 @@
     </div>
 
     <p class="description">"O ato de se consagrar a Jesus por Maria marca o início de um dia gloriosamente novo, um novo amanhecer, uma nova manhã na jornada espiritual de uma pessoa." - Padre Michael Gaitley</p>
-    <p class="description">Por favor, informe seu nome completo, escolha o template desejado e receba sua fórmula de consagração personalizada </p>
+    <p class="description">Por favor, informe seu nome completo, escolha o template desejado e receba sua fórmula de consagração personalizada.</p>
+
     <form action="/generate_consacration_file/" method="post">
         <label for="name">Informe seu nome:</label>
         <input type="text" id="name" name="name" placeholder="Nome completo" required>
@@ -115,7 +170,6 @@
         <p>"Minha alma louva o Senhor, exulta meu espírito em Deus, meu Salvador!" (Lc, 1:46)</p>
         <p>&copy; 2024</p>
         <p><a href="https://github.com/dantba/MtnConsacration" target="_blank">GitHub</a></p>
-
     </div>
 </body>
 </html>
